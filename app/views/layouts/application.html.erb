@@ -7,20 +7,26 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">SN</a>
-    <a href="#"><%= link_to "All Statuses", statuses_path %> <span class="sr-only">(current)</span></a>
+    <%= link_to "SN", root_path, class: "navbar-brand"  %>
+    <ul class="nav navbar-nav">
+    <li><%= link_to "All Statuses", statuses_path %> <span class="sr-only">(current)</span></li>
     <% if user_signed_in? %>
-
-    <a href="#"><%= link_to "Log out", destroy_user_session_path, method: :delete %> <span class="sr-only">(current)</span></a>
-<% end %>
+<li><%= link_to current_user.full_name, edit_user_registration_path %></li>
+    <li><%= link_to "Log out", destroy_user_session_path, method: :delete %> <span class="sr-only">(current)</span></li>
+<% else %>
+          <li><%= link_to "Log in",new_user_session_path %> <span class="sr-only">(current)</span></li>
+          <li><%= link_to "Registration",new_user_registration_path %> <span class="sr-only">(current)</span></li>
+      <% end %>
+    </ul>
   </div>
 </nav>
 
 
 <div class="container">
-  <p class="notice"><%= notice %></p>
+  <p class="alert-success my_success"><%= notice %></p>
+
   <p class="alert"><%= alert %></p>
           <%= yield %>
 </div>
